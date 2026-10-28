@@ -157,12 +157,20 @@ public class EcosistemaView extends javax.swing.JFrame {
         panelAccionesSim = new javax.swing.JPanel();
         lblEstadoSimulacion = new javax.swing.JLabel();
         btnAvanzarTurno = new javax.swing.JButton();
+        panelIntervencion = new javax.swing.JPanel();
+        lblNuevoClima = new javax.swing.JLabel();
+        cmbNuevoClima = new javax.swing.JComboBox<>();
+        btnCambiarClima = new javax.swing.JButton();
+        lblTipoEntidad = new javax.swing.JLabel();
+        cmbTipoEntidad = new javax.swing.JComboBox<>();
+        btnAgregarEntidad = new javax.swing.JButton();
         panelReporte = new javax.swing.JPanel();
         lblTituloReporte = new javax.swing.JLabel();
         lblEstadoReporte = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Simulador de Ecosistema - IE2");
+
         panelPrincipal.setLayout(new java.awt.CardLayout());
 
         panelConfiguracion.setLayout(new java.awt.BorderLayout(20, 20));
@@ -170,10 +178,8 @@ public class EcosistemaView extends javax.swing.JFrame {
         lblTituloConfig.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
         lblTituloConfig.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         lblTituloConfig.setText("Configuración inicial del ecosistema");
-        lblTituloConfig.setBorder(javax.swing.BorderFactory.createEmptyBorder(20, 10, 10, 10));
-        panelConfiguracion.add(lblTituloConfig, java.awt.BorderLayout.NORTH);
+        panelConfiguracion.add(lblTituloConfig, java.awt.BorderLayout.PAGE_START);
 
-        panelFormulario.setBorder(javax.swing.BorderFactory.createEmptyBorder(20, 100, 20, 100));
         panelFormulario.setLayout(new java.awt.GridLayout(5, 2, 18, 14));
 
         lblPlantas.setText("Plantas (5 a 30):");
@@ -208,20 +214,16 @@ public class EcosistemaView extends javax.swing.JFrame {
 
         panelConfiguracion.add(panelFormulario, java.awt.BorderLayout.CENTER);
 
-        panelBotonesConfig.setBorder(javax.swing.BorderFactory.createEmptyBorder(10, 10, 25, 10));
-        panelBotonesConfig.setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.CENTER));
-
         btnIniciar.setText("INICIAR SIMULACIÓN");
         btnIniciar.addActionListener(this::btnIniciarActionPerformed);
         panelBotonesConfig.add(btnIniciar);
 
-        panelConfiguracion.add(panelBotonesConfig, java.awt.BorderLayout.SOUTH);
+        panelConfiguracion.add(panelBotonesConfig, java.awt.BorderLayout.PAGE_END);
 
         panelPrincipal.add(panelConfiguracion, "configuracion");
 
         panelSimulacion.setLayout(new java.awt.BorderLayout(10, 10));
 
-        panelResumen.setBorder(javax.swing.BorderFactory.createEmptyBorder(15, 10, 10, 10));
         panelResumen.setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.CENTER, 20, 5));
 
         lblTurnoResumen.setText("Turno: 0 / 0");
@@ -239,9 +241,8 @@ public class EcosistemaView extends javax.swing.JFrame {
         lblLobosResumen.setText("Lobos: 0");
         panelResumen.add(lblLobosResumen);
 
-        panelSimulacion.add(panelResumen, java.awt.BorderLayout.NORTH);
+        panelSimulacion.add(panelResumen, java.awt.BorderLayout.PAGE_START);
 
-        panelContenidoSimulacion.setBorder(javax.swing.BorderFactory.createEmptyBorder(0, 10, 0, 10));
         panelContenidoSimulacion.setLayout(new java.awt.GridLayout(1, 2, 10, 0));
 
         panelEntidades.setLayout(new java.awt.BorderLayout(5, 5));
@@ -249,7 +250,7 @@ public class EcosistemaView extends javax.swing.JFrame {
         lblTituloEntidades.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         lblTituloEntidades.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         lblTituloEntidades.setText("Entidades vivas");
-        panelEntidades.add(lblTituloEntidades, java.awt.BorderLayout.NORTH);
+        panelEntidades.add(lblTituloEntidades, java.awt.BorderLayout.PAGE_START);
 
         tblEntidades.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -271,6 +272,7 @@ public class EcosistemaView extends javax.swing.JFrame {
         scrollEntidades.setViewportView(tblEntidades);
 
         panelEntidades.add(scrollEntidades, java.awt.BorderLayout.CENTER);
+
         panelContenidoSimulacion.add(panelEntidades);
 
         panelEventos.setLayout(new java.awt.BorderLayout(5, 5));
@@ -278,7 +280,7 @@ public class EcosistemaView extends javax.swing.JFrame {
         lblTituloEventos.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         lblTituloEventos.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         lblTituloEventos.setText("Eventos del turno");
-        panelEventos.add(lblTituloEventos, java.awt.BorderLayout.NORTH);
+        panelEventos.add(lblTituloEventos, java.awt.BorderLayout.PAGE_START);
 
         lstEventos.setModel(new javax.swing.AbstractListModel<String>() {
             String[] strings = { "Aún no se procesó ningún turno." };
@@ -289,22 +291,48 @@ public class EcosistemaView extends javax.swing.JFrame {
         scrollEventos.setViewportView(lstEventos);
 
         panelEventos.add(scrollEventos, java.awt.BorderLayout.CENTER);
+
         panelContenidoSimulacion.add(panelEventos);
 
         panelSimulacion.add(panelContenidoSimulacion, java.awt.BorderLayout.CENTER);
 
-        panelAccionesSim.setBorder(javax.swing.BorderFactory.createEmptyBorder(10, 10, 20, 10));
-        panelAccionesSim.setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.CENTER, 20, 5));
+        panelAccionesSim.setLayout(new java.awt.BorderLayout());
 
         lblEstadoSimulacion.setText("Estado inicial del ecosistema");
-        panelAccionesSim.add(lblEstadoSimulacion);
+        panelAccionesSim.add(lblEstadoSimulacion, java.awt.BorderLayout.NORTH);
 
         btnAvanzarTurno.setText("AVANZAR TURNO");
         btnAvanzarTurno.setEnabled(false);
         btnAvanzarTurno.addActionListener(this::btnAvanzarTurnoActionPerformed);
-        panelAccionesSim.add(btnAvanzarTurno);
+        panelAccionesSim.add(btnAvanzarTurno, java.awt.BorderLayout.EAST);
 
-        panelSimulacion.add(panelAccionesSim, java.awt.BorderLayout.SOUTH);
+        panelIntervencion.setBorder(javax.swing.BorderFactory.createTitledBorder("Intervención del jugador (cada 3 turnos)"));
+
+        lblNuevoClima.setText("Nuevo clima:");
+        panelIntervencion.add(lblNuevoClima);
+
+        cmbNuevoClima.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "soleado", " lluvioso", "sequia,", "invierno" }));
+        cmbNuevoClima.setEnabled(false);
+        panelIntervencion.add(cmbNuevoClima);
+
+        btnCambiarClima.setText("CAMBIAR CLIMA");
+        btnCambiarClima.setEnabled(false);
+        panelIntervencion.add(btnCambiarClima);
+
+        lblTipoEntidad.setText("Agregar:");
+        panelIntervencion.add(lblTipoEntidad);
+
+        cmbTipoEntidad.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "planta", "planta venenosa", "conejo", " lobo" }));
+        cmbTipoEntidad.setEnabled(false);
+        panelIntervencion.add(cmbTipoEntidad);
+
+        btnAgregarEntidad.setText("AGREGAR ENTIDAD");
+        btnAgregarEntidad.setEnabled(false);
+        panelIntervencion.add(btnAgregarEntidad);
+
+        panelAccionesSim.add(panelIntervencion, java.awt.BorderLayout.CENTER);
+
+        panelSimulacion.add(panelAccionesSim, java.awt.BorderLayout.PAGE_END);
 
         panelPrincipal.add(panelSimulacion, "simulacion");
 
@@ -313,8 +341,7 @@ public class EcosistemaView extends javax.swing.JFrame {
         lblTituloReporte.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
         lblTituloReporte.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         lblTituloReporte.setText("Reporte final");
-        lblTituloReporte.setBorder(javax.swing.BorderFactory.createEmptyBorder(25, 10, 10, 10));
-        panelReporte.add(lblTituloReporte, java.awt.BorderLayout.NORTH);
+        panelReporte.add(lblTituloReporte, java.awt.BorderLayout.PAGE_START);
 
         lblEstadoReporte.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         lblEstadoReporte.setText("El reporte se mostrará al finalizar la simulación");
@@ -360,9 +387,13 @@ public class EcosistemaView extends javax.swing.JFrame {
     }//GEN-LAST:event_btnAvanzarTurnoActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnAgregarEntidad;
     private javax.swing.JButton btnAvanzarTurno;
+    private javax.swing.JButton btnCambiarClima;
     private javax.swing.JButton btnIniciar;
     private javax.swing.JComboBox<String> cmbClima;
+    private javax.swing.JComboBox<String> cmbNuevoClima;
+    private javax.swing.JComboBox<String> cmbTipoEntidad;
     private javax.swing.JLabel lblClima;
     private javax.swing.JLabel lblClimaResumen;
     private javax.swing.JLabel lblConejos;
@@ -371,8 +402,10 @@ public class EcosistemaView extends javax.swing.JFrame {
     private javax.swing.JLabel lblEstadoSimulacion;
     private javax.swing.JLabel lblLobos;
     private javax.swing.JLabel lblLobosResumen;
+    private javax.swing.JLabel lblNuevoClima;
     private javax.swing.JLabel lblPlantas;
     private javax.swing.JLabel lblPlantasResumen;
+    private javax.swing.JLabel lblTipoEntidad;
     private javax.swing.JLabel lblTituloConfig;
     private javax.swing.JLabel lblTituloEntidades;
     private javax.swing.JLabel lblTituloEventos;
@@ -387,6 +420,7 @@ public class EcosistemaView extends javax.swing.JFrame {
     private javax.swing.JPanel panelEntidades;
     private javax.swing.JPanel panelEventos;
     private javax.swing.JPanel panelFormulario;
+    private javax.swing.JPanel panelIntervencion;
     private javax.swing.JPanel panelPrincipal;
     private javax.swing.JPanel panelReporte;
     private javax.swing.JPanel panelResumen;
