@@ -1,0 +1,227 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<Form version="1.8" maxVersion="1.9" type="org.netbeans.modules.form.forminfo.JFrameFormInfo">
+  <Properties>
+    <Property name="defaultCloseOperation" type="int" value="3"/>
+    <Property name="title" type="java.lang.String" value="Simulador de Ecosistema - IE2"/>
+  </Properties>
+  <SyntheticProperties>
+    <SyntheticProperty name="formSizePolicy" type="int" value="1"/>
+    <SyntheticProperty name="generateCenter" type="boolean" value="false"/>
+  </SyntheticProperties>
+  <AuxValues>
+    <AuxValue name="FormSettings_autoResourcing" type="java.lang.Integer" value="0"/>
+    <AuxValue name="FormSettings_autoSetComponentName" type="java.lang.Boolean" value="false"/>
+    <AuxValue name="FormSettings_generateFQN" type="java.lang.Boolean" value="true"/>
+    <AuxValue name="FormSettings_generateMnemonicsCode" type="java.lang.Boolean" value="false"/>
+    <AuxValue name="FormSettings_i18nAutoMode" type="java.lang.Boolean" value="false"/>
+    <AuxValue name="FormSettings_layoutCodeTarget" type="java.lang.Integer" value="1"/>
+    <AuxValue name="FormSettings_listenerGenerationStyle" type="java.lang.Integer" value="3"/>
+    <AuxValue name="FormSettings_variablesLocal" type="java.lang.Boolean" value="false"/>
+    <AuxValue name="FormSettings_variablesModifier" type="java.lang.Integer" value="2"/>
+  </AuxValues>
+
+  <Layout>
+    <DimensionLayout dim="0">
+      <Group type="103" groupAlignment="0" attributes="0">
+        <Component id="panelPrincipal" alignment="0" pref="980" max="32767" attributes="0"/>
+      </Group>
+    </DimensionLayout>
+    <DimensionLayout dim="1">
+      <Group type="103" groupAlignment="0" attributes="0">
+        <Component id="panelPrincipal" alignment="0" pref="600" max="32767" attributes="0"/>
+      </Group>
+    </DimensionLayout>
+  </Layout>
+
+  <SubComponents>
+    <Container class="javax.swing.JPanel" name="panelPrincipal">
+      <Layout class="org.netbeans.modules.form.compat2.layouts.DesignCardLayout"/>
+      <SubComponents>
+        <Container class="javax.swing.JPanel" name="panelConfiguracion">
+          <Constraints>
+            <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignCardLayout" value="org.netbeans.modules.form.compat2.layouts.DesignCardLayout$CardConstraintsDescription">
+              <CardConstraints cardName="configuracion"/>
+            </Constraint>
+          </Constraints>
+          <Layout class="org.netbeans.modules.form.compat2.layouts.DesignBorderLayout">
+            <Property name="horizontalGap" type="int" value="20"/>
+            <Property name="verticalGap" type="int" value="20"/>
+          </Layout>
+          <SubComponents>
+            <Component class="javax.swing.JLabel" name="lblTituloConfig">
+              <Properties>
+                <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor"><Font name="Segoe UI" size="24" style="1"/></Property>
+                <Property name="horizontalAlignment" type="int" value="0"/>
+                <Property name="text" type="java.lang.String" value="Configuración inicial del ecosistema"/>
+              </Properties>
+              <Constraints><Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignBorderLayout" value="org.netbeans.modules.form.compat2.layouts.DesignBorderLayout$BorderConstraintsDescription"><BorderConstraints direction="First"/></Constraint></Constraints>
+            </Component>
+            <Container class="javax.swing.JPanel" name="panelFormulario">
+              <Layout class="org.netbeans.modules.form.compat2.layouts.DesignGridLayout">
+                <Property name="columns" type="int" value="2"/>
+                <Property name="horizontalGap" type="int" value="18"/>
+                <Property name="rows" type="int" value="5"/>
+                <Property name="verticalGap" type="int" value="14"/>
+              </Layout>
+              <SubComponents>
+                <Component class="javax.swing.JLabel" name="lblPlantas"><Properties><Property name="text" type="java.lang.String" value="Plantas (5 a 30):"/></Properties></Component>
+                <Component class="javax.swing.JTextField" name="tfPlantas"><Properties><Property name="text" type="java.lang.String" value="10"/></Properties></Component>
+                <Component class="javax.swing.JLabel" name="lblConejos"><Properties><Property name="text" type="java.lang.String" value="Conejos (2 a 15):"/></Properties></Component>
+                <Component class="javax.swing.JTextField" name="tfConejos"><Properties><Property name="text" type="java.lang.String" value="5"/></Properties></Component>
+                <Component class="javax.swing.JLabel" name="lblLobos"><Properties><Property name="text" type="java.lang.String" value="Lobos (1 a 5):"/></Properties></Component>
+                <Component class="javax.swing.JTextField" name="tfLobos"><Properties><Property name="text" type="java.lang.String" value="2"/></Properties></Component>
+                <Component class="javax.swing.JLabel" name="lblClima"><Properties><Property name="text" type="java.lang.String" value="Clima inicial:"/></Properties></Component>
+                <Component class="javax.swing.JComboBox" name="cmbClima">
+                  <Properties>
+                    <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
+                      <StringArray count="4"><StringItem index="0" value="soleado"/><StringItem index="1" value="lluvioso"/><StringItem index="2" value="sequia"/><StringItem index="3" value="invierno"/></StringArray>
+                    </Property>
+                  </Properties>
+                  <AuxValues><AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;String&gt;"/></AuxValues>
+                </Component>
+                <Component class="javax.swing.JLabel" name="lblTurnos"><Properties><Property name="text" type="java.lang.String" value="Turnos totales (10 a 50):"/></Properties></Component>
+                <Component class="javax.swing.JTextField" name="tfTurnos"><Properties><Property name="text" type="java.lang.String" value="20"/></Properties></Component>
+              </SubComponents>
+              <Constraints><Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignBorderLayout" value="org.netbeans.modules.form.compat2.layouts.DesignBorderLayout$BorderConstraintsDescription"><BorderConstraints direction="Center"/></Constraint></Constraints>
+            </Container>
+            <Container class="javax.swing.JPanel" name="panelBotonesConfig">
+              <Layout class="org.netbeans.modules.form.compat2.layouts.DesignFlowLayout"><Property name="alignment" type="int" value="1"/></Layout>
+              <SubComponents>
+                <Component class="javax.swing.JButton" name="btnIniciar">
+                  <Properties><Property name="text" type="java.lang.String" value="INICIAR SIMULACIÓN"/></Properties>
+                  <Events><EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnIniciarActionPerformed"/></Events>
+                </Component>
+              </SubComponents>
+              <Constraints><Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignBorderLayout" value="org.netbeans.modules.form.compat2.layouts.DesignBorderLayout$BorderConstraintsDescription"><BorderConstraints direction="Last"/></Constraint></Constraints>
+            </Container>
+          </SubComponents>
+        </Container>
+
+        <Container class="javax.swing.JPanel" name="panelSimulacion">
+          <Constraints>
+            <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignCardLayout" value="org.netbeans.modules.form.compat2.layouts.DesignCardLayout$CardConstraintsDescription"><CardConstraints cardName="simulacion"/></Constraint>
+          </Constraints>
+          <Layout class="org.netbeans.modules.form.compat2.layouts.DesignBorderLayout">
+            <Property name="horizontalGap" type="int" value="10"/>
+            <Property name="verticalGap" type="int" value="10"/>
+          </Layout>
+          <SubComponents>
+            <Container class="javax.swing.JPanel" name="panelResumen">
+              <Layout class="org.netbeans.modules.form.compat2.layouts.DesignFlowLayout"><Property name="alignment" type="int" value="1"/><Property name="horizontalGap" type="int" value="20"/></Layout>
+              <SubComponents>
+                <Component class="javax.swing.JLabel" name="lblTurnoResumen"><Properties><Property name="text" type="java.lang.String" value="Turno: 0 / 0"/></Properties></Component>
+                <Component class="javax.swing.JLabel" name="lblClimaResumen"><Properties><Property name="text" type="java.lang.String" value="Clima: -"/></Properties></Component>
+                <Component class="javax.swing.JLabel" name="lblPlantasResumen"><Properties><Property name="text" type="java.lang.String" value="Plantas: 0"/></Properties></Component>
+                <Component class="javax.swing.JLabel" name="lblConejosResumen"><Properties><Property name="text" type="java.lang.String" value="Conejos: 0"/></Properties></Component>
+                <Component class="javax.swing.JLabel" name="lblLobosResumen"><Properties><Property name="text" type="java.lang.String" value="Lobos: 0"/></Properties></Component>
+              </SubComponents>
+              <Constraints><Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignBorderLayout" value="org.netbeans.modules.form.compat2.layouts.DesignBorderLayout$BorderConstraintsDescription"><BorderConstraints direction="First"/></Constraint></Constraints>
+            </Container>
+
+            <Container class="javax.swing.JPanel" name="panelContenidoSimulacion">
+              <Layout class="org.netbeans.modules.form.compat2.layouts.DesignGridLayout">
+                <Property name="columns" type="int" value="2"/>
+                <Property name="horizontalGap" type="int" value="10"/>
+                <Property name="rows" type="int" value="1"/>
+              </Layout>
+              <SubComponents>
+                <Container class="javax.swing.JPanel" name="panelEntidades">
+                  <Layout class="org.netbeans.modules.form.compat2.layouts.DesignBorderLayout"><Property name="horizontalGap" type="int" value="5"/><Property name="verticalGap" type="int" value="5"/></Layout>
+                  <SubComponents>
+                    <Component class="javax.swing.JLabel" name="lblTituloEntidades">
+                      <Properties>
+                        <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor"><Font name="Segoe UI" size="14" style="1"/></Property>
+                        <Property name="horizontalAlignment" type="int" value="0"/>
+                        <Property name="text" type="java.lang.String" value="Entidades vivas"/>
+                      </Properties>
+                      <Constraints><Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignBorderLayout" value="org.netbeans.modules.form.compat2.layouts.DesignBorderLayout$BorderConstraintsDescription"><BorderConstraints direction="First"/></Constraint></Constraints>
+                    </Component>
+                    <Container class="javax.swing.JScrollPane" name="scrollEntidades">
+                      <AuxValues><AuxValue name="autoScrollPane" type="java.lang.Boolean" value="true"/></AuxValues>
+                      <Layout class="org.netbeans.modules.form.compat2.layouts.support.JScrollPaneSupportLayout"/>
+                      <SubComponents>
+                        <Component class="javax.swing.JTable" name="tblEntidades">
+                          <Properties>
+                            <Property name="model" type="javax.swing.table.TableModel" editor="org.netbeans.modules.form.editors2.TableModelEditor">
+                              <Table columnCount="4" rowCount="0">
+                                <Column editable="false" title="Nombre" type="java.lang.Object"/>
+                                <Column editable="false" title="Tipo" type="java.lang.Object"/>
+                                <Column editable="false" title="Edad" type="java.lang.Object"/>
+                                <Column editable="false" title="Energía" type="java.lang.Object"/>
+                              </Table>
+                            </Property>
+                            <Property name="selectionMode" type="int" value="0"/>
+                          </Properties>
+                        </Component>
+                      </SubComponents>
+                      <Constraints><Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignBorderLayout" value="org.netbeans.modules.form.compat2.layouts.DesignBorderLayout$BorderConstraintsDescription"><BorderConstraints direction="Center"/></Constraint></Constraints>
+                    </Container>
+                  </SubComponents>
+                </Container>
+
+                <Container class="javax.swing.JPanel" name="panelEventos">
+                  <Layout class="org.netbeans.modules.form.compat2.layouts.DesignBorderLayout"><Property name="horizontalGap" type="int" value="5"/><Property name="verticalGap" type="int" value="5"/></Layout>
+                  <SubComponents>
+                    <Component class="javax.swing.JLabel" name="lblTituloEventos">
+                      <Properties>
+                        <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor"><Font name="Segoe UI" size="14" style="1"/></Property>
+                        <Property name="horizontalAlignment" type="int" value="0"/>
+                        <Property name="text" type="java.lang.String" value="Eventos del turno"/>
+                      </Properties>
+                      <Constraints><Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignBorderLayout" value="org.netbeans.modules.form.compat2.layouts.DesignBorderLayout$BorderConstraintsDescription"><BorderConstraints direction="First"/></Constraint></Constraints>
+                    </Component>
+                    <Container class="javax.swing.JScrollPane" name="scrollEventos">
+                      <AuxValues><AuxValue name="autoScrollPane" type="java.lang.Boolean" value="true"/></AuxValues>
+                      <Layout class="org.netbeans.modules.form.compat2.layouts.support.JScrollPaneSupportLayout"/>
+                      <SubComponents>
+                        <Component class="javax.swing.JList" name="lstEventos">
+                          <Properties>
+                            <Property name="model" type="javax.swing.ListModel" editor="org.netbeans.modules.form.editors2.ListModelEditor">
+                              <StringArray count="1"><StringItem index="0" value="Aún no se procesó ningún turno."/></StringArray>
+                            </Property>
+                            <Property name="selectionMode" type="int" value="0"/>
+                          </Properties>
+                          <AuxValues><AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;String&gt;"/></AuxValues>
+                        </Component>
+                      </SubComponents>
+                      <Constraints><Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignBorderLayout" value="org.netbeans.modules.form.compat2.layouts.DesignBorderLayout$BorderConstraintsDescription"><BorderConstraints direction="Center"/></Constraint></Constraints>
+                    </Container>
+                  </SubComponents>
+                </Container>
+              </SubComponents>
+              <Constraints><Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignBorderLayout" value="org.netbeans.modules.form.compat2.layouts.DesignBorderLayout$BorderConstraintsDescription"><BorderConstraints direction="Center"/></Constraint></Constraints>
+            </Container>
+
+            <Container class="javax.swing.JPanel" name="panelAccionesSim">
+              <Layout class="org.netbeans.modules.form.compat2.layouts.DesignFlowLayout"><Property name="alignment" type="int" value="1"/><Property name="horizontalGap" type="int" value="20"/></Layout>
+              <SubComponents>
+                <Component class="javax.swing.JLabel" name="lblEstadoSimulacion"><Properties><Property name="text" type="java.lang.String" value="Estado inicial del ecosistema"/></Properties></Component>
+                <Component class="javax.swing.JButton" name="btnAvanzarTurno">
+                  <Properties><Property name="text" type="java.lang.String" value="AVANZAR TURNO"/><Property name="enabled" type="boolean" value="false"/></Properties>
+                  <Events><EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnAvanzarTurnoActionPerformed"/></Events>
+                </Component>
+              </SubComponents>
+              <Constraints><Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignBorderLayout" value="org.netbeans.modules.form.compat2.layouts.DesignBorderLayout$BorderConstraintsDescription"><BorderConstraints direction="Last"/></Constraint></Constraints>
+            </Container>
+          </SubComponents>
+        </Container>
+
+        <Container class="javax.swing.JPanel" name="panelReporte">
+          <Constraints><Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignCardLayout" value="org.netbeans.modules.form.compat2.layouts.DesignCardLayout$CardConstraintsDescription"><CardConstraints cardName="reporte"/></Constraint></Constraints>
+          <Layout class="org.netbeans.modules.form.compat2.layouts.DesignBorderLayout"/>
+          <SubComponents>
+            <Component class="javax.swing.JLabel" name="lblTituloReporte">
+              <Properties><Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor"><Font name="Segoe UI" size="24" style="1"/></Property><Property name="horizontalAlignment" type="int" value="0"/><Property name="text" type="java.lang.String" value="Reporte final"/></Properties>
+              <Constraints><Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignBorderLayout" value="org.netbeans.modules.form.compat2.layouts.DesignBorderLayout$BorderConstraintsDescription"><BorderConstraints direction="First"/></Constraint></Constraints>
+            </Component>
+            <Component class="javax.swing.JLabel" name="lblEstadoReporte">
+              <Properties><Property name="horizontalAlignment" type="int" value="0"/><Property name="text" type="java.lang.String" value="El reporte se mostrará al finalizar la simulación"/></Properties>
+              <Constraints><Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignBorderLayout" value="org.netbeans.modules.form.compat2.layouts.DesignBorderLayout$BorderConstraintsDescription"><BorderConstraints direction="Center"/></Constraint></Constraints>
+            </Component>
+          </SubComponents>
+        </Container>
+      </SubComponents>
+    </Container>
+  </SubComponents>
+</Form>

@@ -1,0 +1,14 @@
+FIGMA
+
+Enlace: 
+
+Pantallas principales:
+1. Configuración inicial.
+2. Simulación en curso.
+3. Reporte final.
+
+Estados de interfaz contemplados:
+- sin simulación;
+- error de validación;
+- confirmación de nueva simulación;
+- intervención habilitada/deshabilitada.
