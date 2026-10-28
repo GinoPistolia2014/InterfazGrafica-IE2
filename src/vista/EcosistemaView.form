@@ -385,8 +385,8 @@
                         <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
                           <StringArray count="4">
                             <StringItem index="0" value="soleado"/>
-                            <StringItem index="1" value=" lluvioso"/>
-                            <StringItem index="2" value="sequia,"/>
+                            <StringItem index="1" value="lluvioso"/>
+                            <StringItem index="2" value="sequia"/>
                             <StringItem index="3" value="invierno"/>
                           </StringArray>
                         </Property>
@@ -417,11 +417,14 @@
                             <StringItem index="0" value="planta"/>
                             <StringItem index="1" value="planta venenosa"/>
                             <StringItem index="2" value="conejo"/>
-                            <StringItem index="3" value=" lobo"/>
+                            <StringItem index="3" value="lobo"/>
                           </StringArray>
                         </Property>
                         <Property name="enabled" type="boolean" value="false"/>
                       </Properties>
+                      <Events>
+                        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="cmbTipoEntidadActionPerformed"/>
+                      </Events>
                       <AuxValues>
                         <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;String&gt;"/>
                       </AuxValues>

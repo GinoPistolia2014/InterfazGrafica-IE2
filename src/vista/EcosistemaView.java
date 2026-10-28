@@ -317,7 +317,7 @@ public class EcosistemaView extends javax.swing.JFrame {
         lblNuevoClima.setText("Nuevo clima:");
         panelIntervencion.add(lblNuevoClima);
 
-        cmbNuevoClima.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "soleado", " lluvioso", "sequia,", "invierno" }));
+        cmbNuevoClima.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "soleado", "lluvioso", "sequia", "invierno" }));
         cmbNuevoClima.setEnabled(false);
         panelIntervencion.add(cmbNuevoClima);
 
@@ -329,8 +329,9 @@ public class EcosistemaView extends javax.swing.JFrame {
         lblTipoEntidad.setText("Agregar:");
         panelIntervencion.add(lblTipoEntidad);
 
-        cmbTipoEntidad.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "planta", "planta venenosa", "conejo", " lobo" }));
+        cmbTipoEntidad.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "planta", "planta venenosa", "conejo", "lobo" }));
         cmbTipoEntidad.setEnabled(false);
+        cmbTipoEntidad.addActionListener(this::cmbTipoEntidadActionPerformed);
         panelIntervencion.add(cmbTipoEntidad);
 
         btnAgregarEntidad.setText("AGREGAR ENTIDAD");
@@ -401,6 +402,10 @@ public class EcosistemaView extends javax.swing.JFrame {
     private void btnAgregarEntidadActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregarEntidadActionPerformed
         controlador.agregarEntidad((String) cmbTipoEntidad.getSelectedItem());
     }//GEN-LAST:event_btnAgregarEntidadActionPerformed
+
+    private void cmbTipoEntidadActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbTipoEntidadActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_cmbTipoEntidadActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAgregarEntidad;

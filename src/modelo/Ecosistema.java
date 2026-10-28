@@ -5,8 +5,9 @@ import java.util.ArrayList;
 /**
  * Modelo principal de la simulación.
  *
- * Conserva la mecánica de la IE1 sin utilizar Scanner, System.out ni Swing.
- * Los eventos se representan como datos para que otras capas decidan cómo mostrarlos.
+ * Conserva la mecánica de la IE1 sin utilizar Scanner, System.out ni Swing. Los
+ * eventos se representan como datos para que otras capas decidan cómo
+ * mostrarlos.
  */
 public class Ecosistema {
 
@@ -34,7 +35,6 @@ public class Ecosistema {
     // -----------------------------------------------------------------
     // CONFIGURACIÓN INICIAL
     // -----------------------------------------------------------------
-
     public void configurarSimulacion(
             int cantidadPlantas,
             int cantidadConejos,
@@ -106,10 +106,9 @@ public class Ecosistema {
     // -----------------------------------------------------------------
     // PROCESAMIENTO DE TURNO
     // -----------------------------------------------------------------
-
     /**
-     * Procesa un turno y devuelve los eventos generados.
-     * No muestra nada por consola ni usa Swing.
+     * Procesa un turno y devuelve los eventos generados. No muestra nada por
+     * consola ni usa Swing.
      */
     public ArrayList<String> procesarTurno() {
         if (!configurado) {
@@ -174,13 +173,16 @@ public class Ecosistema {
         int efectoLobos = 0;
 
         switch (climaActual) {
-            case soleado -> efectoConejos = 5;
+            case soleado ->
+                efectoConejos = 5;
             case lluvioso -> {
                 efectoConejos = 3;
                 efectoLobos = -5;
             }
-            case sequia -> efectoConejos = -5;
-            case invierno -> efectoConejos = -8;
+            case sequia ->
+                efectoConejos = -5;
+            case invierno ->
+                efectoConejos = -8;
         }
 
         for (Conejo conejo : conejos) {
@@ -229,7 +231,6 @@ public class Ecosistema {
     // -----------------------------------------------------------------
     // ENTIDADES / INTERVENCIÓN
     // -----------------------------------------------------------------
-
     public Entidad agregarEntidad(String tipo) {
         return agregarEntidad(tipo, 30.0 + Math.random() * 70.0);
     }
@@ -272,8 +273,9 @@ public class Ecosistema {
                 totalLobosCreados++;
                 nueva = lobo;
             }
-            default -> throw new IllegalArgumentException(
-                    "Tipo de entidad desconocido: " + tipo);
+            default ->
+                throw new IllegalArgumentException(
+                        "Tipo de entidad desconocido: " + tipo);
         }
 
         return nueva;
@@ -285,32 +287,34 @@ public class Ecosistema {
         }
         climaActual = nuevo;
     }
-     public void intervenirCambiarClima(Clima nuevo) {
-    if (!puedeIntervenir()) {
-        throw new IllegalStateException(
-                "Solo se puede intervenir cada 3 turnos, una vez por turno.");
-    }
-    if (nuevo == null) {
-        throw new IllegalArgumentException("Debe seleccionar un clima.");
-    }
-    if (nuevo == climaActual) {
-        throw new IllegalArgumentException("El clima ya es " + nuevo + ".");
-    }
-    cambiarClima(nuevo);
-    ultimoTurnoIntervenido = turnoActual;
-    registrarEvento("Intervencion del jugador: el clima cambio a " + nuevo + ".");
-}
 
-public Entidad intervenirAgregarEntidad(String tipo) {
-    if (!puedeIntervenir()) {
-        throw new IllegalStateException(
-                "Solo se puede intervenir cada 3 turnos, una vez por turno.");
+    public void intervenirCambiarClima(Clima nuevo) {
+        if (!puedeIntervenir()) {
+            throw new IllegalStateException(
+                    "Solo se puede intervenir cada 3 turnos, una vez por turno.");
+        }
+        if (nuevo == null) {
+            throw new IllegalArgumentException("Debe seleccionar un clima.");
+        }
+        if (nuevo == climaActual) {
+            throw new IllegalArgumentException("El clima ya es " + nuevo + ".");
+        }
+        cambiarClima(nuevo);
+        ultimoTurnoIntervenido = turnoActual;
+        registrarEvento("Intervencion del jugador: el clima cambio a " + nuevo + ".");
     }
-    Entidad nueva = agregarEntidad(tipo); // si ya hay 5 lobos, lanza el error
-    ultimoTurnoIntervenido = turnoActual;
-    registrarEvento("Intervencion del jugador: se agrego " + nueva.obtenerNombre() + ".");
-    return nueva;
-}
+
+    public Entidad intervenirAgregarEntidad(String tipo) {
+        if (!puedeIntervenir()) {
+            throw new IllegalStateException(
+                    "Solo se puede intervenir cada 3 turnos, una vez por turno.");
+        }
+        Entidad nueva = agregarEntidad(tipo); // si ya hay 5 lobos, lanza el error
+        ultimoTurnoIntervenido = turnoActual;
+        registrarEvento("Intervencion del jugador: se agrego " + nueva.obtenerNombre() + ".");
+        return nueva;
+    }
+
     public String generarNombre(String prefijo) {
         String nombre = prefijo + "-" + siguienteId;
         siguienteId++;
@@ -320,17 +324,22 @@ public Entidad intervenirAgregarEntidad(String tipo) {
     // -----------------------------------------------------------------
     // ESTADO CONSULTABLE POR EL CONTROLADOR
     // -----------------------------------------------------------------
-
     public ArrayList<Entidad> obtenerEntidadesVivas() {
         ArrayList<Entidad> vivas = new ArrayList<>();
         for (Planta planta : plantas) {
-            if (planta.estaVivo()) vivas.add(planta);
+            if (planta.estaVivo()) {
+                vivas.add(planta);
+            }
         }
         for (Conejo conejo : conejos) {
-            if (conejo.estaVivo()) vivas.add(conejo);
+            if (conejo.estaVivo()) {
+                vivas.add(conejo);
+            }
         }
         for (Lobo lobo : lobos) {
-            if (lobo.estaVivo()) vivas.add(lobo);
+            if (lobo.estaVivo()) {
+                vivas.add(lobo);
+            }
         }
         return vivas;
     }
@@ -338,7 +347,9 @@ public Entidad intervenirAgregarEntidad(String tipo) {
     public int contarPlantasVivas() {
         int cantidad = 0;
         for (Planta planta : plantas) {
-            if (planta.estaVivo()) cantidad++;
+            if (planta.estaVivo()) {
+                cantidad++;
+            }
         }
         return cantidad;
     }
@@ -346,7 +357,9 @@ public Entidad intervenirAgregarEntidad(String tipo) {
     public int contarConejosVivos() {
         int cantidad = 0;
         for (Conejo conejo : conejos) {
-            if (conejo.estaVivo()) cantidad++;
+            if (conejo.estaVivo()) {
+                cantidad++;
+            }
         }
         return cantidad;
     }
@@ -354,7 +367,9 @@ public Entidad intervenirAgregarEntidad(String tipo) {
     public int contarLobosVivos() {
         int cantidad = 0;
         for (Lobo lobo : lobos) {
-            if (lobo.estaVivo()) cantidad++;
+            if (lobo.estaVivo()) {
+                cantidad++;
+            }
         }
         return cantidad;
     }
@@ -370,10 +385,10 @@ public Entidad intervenirAgregarEntidad(String tipo) {
     }
 
     public boolean puedeIntervenir() {
-    return configurado && turnoActual > 0 && turnoActual % 3 == 0
-            && turnoActual < turnosTotales && !ecosistemaColapsado()
-            && ultimoTurnoIntervenido != turnoActual;
-}
+        return configurado && turnoActual > 0 && turnoActual % 3 == 0
+                && turnoActual < turnosTotales && !ecosistemaColapsado()
+                && ultimoTurnoIntervenido != turnoActual;
+    }
 
     public String obtenerCausaFin() {
         if (!simulacionFinalizada()) {
@@ -384,9 +399,15 @@ public Entidad intervenirAgregarEntidad(String tipo) {
         }
 
         ArrayList<String> extintas = new ArrayList<>();
-        if (contarPlantasVivas() == 0) extintas.add("plantas");
-        if (contarConejosVivos() == 0) extintas.add("conejos");
-        if (contarLobosVivos() == 0) extintas.add("lobos");
+        if (contarPlantasVivas() == 0) {
+            extintas.add("plantas");
+        }
+        if (contarConejosVivos() == 0) {
+            extintas.add("conejos");
+        }
+        if (contarLobosVivos() == 0) {
+            extintas.add("lobos");
+        }
         return "Colapso del ecosistema. Poblacion extinguida: "
                 + String.join(", ", extintas) + ".";
     }
@@ -446,7 +467,6 @@ public Entidad intervenirAgregarEntidad(String tipo) {
     // -----------------------------------------------------------------
     // EVENTOS / NACIMIENTOS / MUERTES
     // -----------------------------------------------------------------
-
     public void registrarEvento(String evento) {
         if (evento == null || evento.trim().isEmpty()) {
             throw new IllegalArgumentException("El evento no puede estar vacio.");
