@@ -29,6 +29,7 @@ public class Ecosistema {
     private int siguienteId = 1;
     private int totalLobosCreados;
     private boolean configurado;
+    private int ultimoTurnoIntervenido = -1;
 
     // -----------------------------------------------------------------
     // CONFIGURACIÓN INICIAL
@@ -99,6 +100,7 @@ public class Ecosistema {
         siguienteId = 1;
         totalLobosCreados = 0;
         configurado = false;
+        ultimoTurnoIntervenido = -1;
     }
 
     // -----------------------------------------------------------------
@@ -283,7 +285,32 @@ public class Ecosistema {
         }
         climaActual = nuevo;
     }
+     public void intervenirCambiarClima(Clima nuevo) {
+    if (!puedeIntervenir()) {
+        throw new IllegalStateException(
+                "Solo se puede intervenir cada 3 turnos, una vez por turno.");
+    }
+    if (nuevo == null) {
+        throw new IllegalArgumentException("Debe seleccionar un clima.");
+    }
+    if (nuevo == climaActual) {
+        throw new IllegalArgumentException("El clima ya es " + nuevo + ".");
+    }
+    cambiarClima(nuevo);
+    ultimoTurnoIntervenido = turnoActual;
+    registrarEvento("Intervencion del jugador: el clima cambio a " + nuevo + ".");
+}
 
+public Entidad intervenirAgregarEntidad(String tipo) {
+    if (!puedeIntervenir()) {
+        throw new IllegalStateException(
+                "Solo se puede intervenir cada 3 turnos, una vez por turno.");
+    }
+    Entidad nueva = agregarEntidad(tipo); // si ya hay 5 lobos, lanza el error
+    ultimoTurnoIntervenido = turnoActual;
+    registrarEvento("Intervencion del jugador: se agrego " + nueva.obtenerNombre() + ".");
+    return nueva;
+}
     public String generarNombre(String prefijo) {
         String nombre = prefijo + "-" + siguienteId;
         siguienteId++;
@@ -343,9 +370,10 @@ public class Ecosistema {
     }
 
     public boolean puedeIntervenir() {
-        return configurado && turnoActual > 0 && turnoActual % 3 == 0
-                && turnoActual < turnosTotales && !ecosistemaColapsado();
-    }
+    return configurado && turnoActual > 0 && turnoActual % 3 == 0
+            && turnoActual < turnosTotales && !ecosistemaColapsado()
+            && ultimoTurnoIntervenido != turnoActual;
+}
 
     public String obtenerCausaFin() {
         if (!simulacionFinalizada()) {
