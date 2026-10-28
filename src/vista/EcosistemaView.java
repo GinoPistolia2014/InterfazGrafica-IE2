@@ -88,6 +88,12 @@ public class EcosistemaView extends javax.swing.JFrame {
     public void habilitarAvanceTurno(boolean habilitado) {
         btnAvanzarTurno.setEnabled(habilitado);
     }
+    public void habilitarIntervencion(boolean habilitado) {
+       cmbNuevoClima.setEnabled(habilitado);
+       btnCambiarClima.setEnabled(habilitado);
+       cmbTipoEntidad.setEnabled(habilitado);
+       btnAgregarEntidad.setEnabled(habilitado);
+    }
 
     public void actualizarEstadoSimulacion(String texto) {
         lblEstadoSimulacion.setText(texto);
@@ -317,6 +323,7 @@ public class EcosistemaView extends javax.swing.JFrame {
 
         btnCambiarClima.setText("CAMBIAR CLIMA");
         btnCambiarClima.setEnabled(false);
+        btnCambiarClima.addActionListener(this::btnCambiarClimaActionPerformed);
         panelIntervencion.add(btnCambiarClima);
 
         lblTipoEntidad.setText("Agregar:");
@@ -328,6 +335,7 @@ public class EcosistemaView extends javax.swing.JFrame {
 
         btnAgregarEntidad.setText("AGREGAR ENTIDAD");
         btnAgregarEntidad.setEnabled(false);
+        btnAgregarEntidad.addActionListener(this::btnAgregarEntidadActionPerformed);
         panelIntervencion.add(btnAgregarEntidad);
 
         panelAccionesSim.add(panelIntervencion, java.awt.BorderLayout.CENTER);
@@ -385,6 +393,14 @@ public class EcosistemaView extends javax.swing.JFrame {
 
         controlador.avanzarTurno();
     }//GEN-LAST:event_btnAvanzarTurnoActionPerformed
+
+    private void btnCambiarClimaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCambiarClimaActionPerformed
+           controlador.cambiarClima((String) cmbNuevoClima.getSelectedItem());
+    }//GEN-LAST:event_btnCambiarClimaActionPerformed
+
+    private void btnAgregarEntidadActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregarEntidadActionPerformed
+        controlador.agregarEntidad((String) cmbTipoEntidad.getSelectedItem());
+    }//GEN-LAST:event_btnAgregarEntidadActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAgregarEntidad;

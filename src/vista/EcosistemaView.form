@@ -401,6 +401,9 @@
                         <Property name="text" type="java.lang.String" value="CAMBIAR CLIMA"/>
                         <Property name="enabled" type="boolean" value="false"/>
                       </Properties>
+                      <Events>
+                        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnCambiarClimaActionPerformed"/>
+                      </Events>
                     </Component>
                     <Component class="javax.swing.JLabel" name="lblTipoEntidad">
                       <Properties>
@@ -428,6 +431,9 @@
                         <Property name="text" type="java.lang.String" value="AGREGAR ENTIDAD"/>
                         <Property name="enabled" type="boolean" value="false"/>
                       </Properties>
+                      <Events>
+                        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnAgregarEntidadActionPerformed"/>
+                      </Events>
                     </Component>
                   </SubComponents>
                 </Container>

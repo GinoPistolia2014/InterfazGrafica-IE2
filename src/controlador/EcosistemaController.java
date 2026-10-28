@@ -18,6 +18,7 @@ public class EcosistemaController {
     private final Ecosistema modelo;
     private final EcosistemaView vista;
     private final EcosistemaDAO dao;
+    private ArrayList<String> ultimosEventos = new ArrayList<>();
 
     public EcosistemaController(
             Ecosistema modelo,
@@ -107,6 +108,8 @@ public class EcosistemaController {
         refrescarPantallaSimulacion(new ArrayList<>());
         vista.actualizarEstadoSimulacion("Ecosistema listo para comenzar.");
         vista.habilitarAvanceTurno(true);
+        vista.habilitarIntervencion(false);
+        ultimosEventos = new ArrayList<>();
         vista.mostrarPantallaSimulacion();
     }
 
@@ -126,22 +129,78 @@ public class EcosistemaController {
 
         try {
             ArrayList<String> eventos = modelo.procesarTurno();
+            ultimosEventos = eventos;
             refrescarPantallaSimulacion(eventos);
         } catch (IllegalStateException e) {
             vista.mostrarError(e.getMessage());
             return;
         }
 
+        
         if (modelo.simulacionFinalizada()) {
             finalizarSimulacionEnVista();
-        } else if (modelo.puedeIntervenir()) {
-            vista.actualizarEstadoSimulacion(
-                    "Intervención disponible en el turno "
-                    + modelo.obtenerTurnoActual() + ".");
-        } else {
-            vista.actualizarEstadoSimulacion("Simulación en curso.");
-        }
+              } else {
+             actualizarEstadoIntervencion();
+             }
     }
+    
+    public void cambiarClima(String climaTexto) {
+    if (estaVacio(climaTexto)) {
+        vista.mostrarError("Seleccione un clima.");
+        return;
+    }
+    Clima nuevo;
+    try {
+        nuevo = Clima.valueOf(climaTexto.trim().toLowerCase().replace("í", "i"));
+    } catch (IllegalArgumentException e) {
+        vista.mostrarError("Seleccione un clima válido.");
+        return;
+    }
+    try {
+        modelo.intervenirCambiarClima(nuevo);
+    } catch (IllegalArgumentException | IllegalStateException e) {
+        vista.mostrarError(e.getMessage());
+        return;
+    }
+    refrescarDespuesDeIntervenir();
+}
+
+public void agregarEntidad(String tipoTexto) {
+    if (estaVacio(tipoTexto)) {
+        vista.mostrarError("Seleccione el tipo de entidad a agregar.");
+        return;
+    }
+    try {
+        modelo.intervenirAgregarEntidad(tipoTexto);
+    } catch (IllegalArgumentException | IllegalStateException e) {
+        vista.mostrarError(e.getMessage());
+        return;
+    }
+    refrescarDespuesDeIntervenir();
+}
+
+private void refrescarDespuesDeIntervenir() {
+    ArrayList<String> eventosAMostrar = new ArrayList<>(ultimosEventos);
+    eventosAMostrar.addAll(modelo.obtenerEventosPendientes());
+    refrescarPantallaSimulacion(eventosAMostrar);
+    actualizarEstadoIntervencion();
+}
+
+private void actualizarEstadoIntervencion() {
+    boolean puede = modelo.puedeIntervenir();
+    vista.habilitarIntervencion(puede);
+    if (puede) {
+        vista.actualizarEstadoSimulacion("Turno " + modelo.obtenerTurnoActual()
+                + ": podés intervenir (cambiar clima o agregar una entidad) o avanzar.");
+    } else if (modelo.obtenerTurnoActual() > 0
+            && modelo.obtenerTurnoActual() % 3 == 0) {
+        vista.actualizarEstadoSimulacion(
+                "Intervención realizada. Avanzá al siguiente turno.");
+    } else {
+        vista.actualizarEstadoSimulacion("Simulación en curso. Próxima intervención en el turno "
+                + ((modelo.obtenerTurnoActual() / 3 + 1) * 3) + ".");
+    }
+}
 
     private void refrescarPantallaSimulacion(ArrayList<String> eventos) {
         vista.actualizarResumenSimulacion(
@@ -168,6 +227,7 @@ public class EcosistemaController {
 
     private void finalizarSimulacionEnVista() {
         vista.habilitarAvanceTurno(false);
+        vista.habilitarIntervencion(false);
         vista.actualizarEstadoSimulacion(modelo.obtenerCausaFin());
         vista.mostrarCausaFin(modelo.obtenerCausaFin());
         vista.mostrarPantallaReporte();
