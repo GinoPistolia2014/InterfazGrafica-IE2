@@ -25,7 +25,6 @@ public class Principal {
 
             vista.setLocationRelativeTo(null);
             vista.setVisible(true);
-            
         });
     }
 }

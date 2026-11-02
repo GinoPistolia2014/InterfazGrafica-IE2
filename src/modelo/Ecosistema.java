@@ -595,6 +595,7 @@ public class Ecosistema {
         todas.addAll(plantas);
         todas.addAll(conejos);
         todas.addAll(lobos);
+        
         return todas;
     }
 

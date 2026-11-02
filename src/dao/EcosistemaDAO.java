@@ -71,6 +71,7 @@ public class EcosistemaDAO {
         if (!existeGuardado()) {
             return null;
         }
+        
         Ecosistema ecosistema = new Ecosistema();
 
         try (BufferedReader lector = new BufferedReader(new FileReader(ARCHIVO))) {

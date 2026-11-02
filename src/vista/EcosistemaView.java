@@ -408,7 +408,6 @@ public class EcosistemaView extends javax.swing.JFrame {
             mostrarError("El controlador todavía no fue conectado.");
             return;
         }
-
         controlador.avanzarTurno();
     }//GEN-LAST:event_btnAvanzarTurnoActionPerformed
 

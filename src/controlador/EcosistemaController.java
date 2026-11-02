@@ -22,6 +22,7 @@ public class EcosistemaController {
     private final EcosistemaView vista;
     private final EcosistemaDAO dao;
     private ArrayList<String> ultimosEventos = new ArrayList<>();
+    
 
     public EcosistemaController(
             Ecosistema modelo,
