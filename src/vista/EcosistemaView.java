@@ -199,6 +199,11 @@ public class EcosistemaView extends javax.swing.JFrame {
         txtReporte = new javax.swing.JTextArea();
         panelBotonesReporte = new javax.swing.JPanel();
         btnNuevaSimulacionReporte = new javax.swing.JButton();
+        barraMenu = new javax.swing.JMenuBar();
+        menuSimulacion = new javax.swing.JMenu();
+        itemNuevaSimulacion = new javax.swing.JMenuItem();
+        menuReportes = new javax.swing.JMenu();
+        itemVerReporte = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Simulador de Ecosistema - IE2");
@@ -419,11 +424,29 @@ public class EcosistemaView extends javax.swing.JFrame {
 
         panelPrincipal.add(panelReporte, "reporte");
 
+        menuSimulacion.setText("Simulación");
+
+        itemNuevaSimulacion.setText("Nueva simulación");
+        itemNuevaSimulacion.addActionListener(this::itemNuevaSimulacionActionPerformed);
+        menuSimulacion.add(itemNuevaSimulacion);
+
+        barraMenu.add(menuSimulacion);
+
+        menuReportes.setText("Reportes");
+
+        itemVerReporte.setText("Ver reporte");
+        itemVerReporte.addActionListener(this::itemVerReporteActionPerformed);
+        menuReportes.add(itemVerReporte);
+
+        barraMenu.add(menuReportes);
+
+        setJMenuBar(barraMenu);
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(panelPrincipal, javax.swing.GroupLayout.DEFAULT_SIZE, 980, Short.MAX_VALUE)
+            .addComponent(panelPrincipal, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -468,16 +491,25 @@ public class EcosistemaView extends javax.swing.JFrame {
     }//GEN-LAST:event_cmbTipoEntidadActionPerformed
 
     private void btnNuevaSimulacionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNuevaSimulacionActionPerformed
-        // TODO add your handling code here:
+
         controlador.nuevaSimulacion();
     }//GEN-LAST:event_btnNuevaSimulacionActionPerformed
 
     private void btnNuevaSimulacionReporteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNuevaSimulacionReporteActionPerformed
-        // TODO add your handling code here:
+
         controlador.nuevaSimulacion();
     }//GEN-LAST:event_btnNuevaSimulacionReporteActionPerformed
 
+    private void itemVerReporteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_itemVerReporteActionPerformed
+        controlador.verReporte();
+    }//GEN-LAST:event_itemVerReporteActionPerformed
+
+    private void itemNuevaSimulacionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_itemNuevaSimulacionActionPerformed
+        controlador.nuevaSimulacion();
+    }//GEN-LAST:event_itemNuevaSimulacionActionPerformed
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JMenuBar barraMenu;
     private javax.swing.JButton btnAgregarEntidad;
     private javax.swing.JButton btnAvanzarTurno;
     private javax.swing.JButton btnCambiarClima;
@@ -487,6 +519,8 @@ public class EcosistemaView extends javax.swing.JFrame {
     private javax.swing.JComboBox<String> cmbClima;
     private javax.swing.JComboBox<String> cmbNuevoClima;
     private javax.swing.JComboBox<String> cmbTipoEntidad;
+    private javax.swing.JMenuItem itemNuevaSimulacion;
+    private javax.swing.JMenuItem itemVerReporte;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JLabel lblClima;
     private javax.swing.JLabel lblClimaResumen;
@@ -506,6 +540,8 @@ public class EcosistemaView extends javax.swing.JFrame {
     private javax.swing.JLabel lblTurnoResumen;
     private javax.swing.JLabel lblTurnos;
     private javax.swing.JList<String> lstEventos;
+    private javax.swing.JMenu menuReportes;
+    private javax.swing.JMenu menuSimulacion;
     private javax.swing.JPanel panelAccionesSim;
     private javax.swing.JPanel panelBotonesConfig;
     private javax.swing.JPanel panelBotonesReporte;

@@ -212,6 +212,25 @@ public class EcosistemaController {
         vista.habilitarIntervencion(false);
         vista.mostrarPantallaConfiguracion();
     }
+     /**
+     * Pedido de la vista (menú Reportes) para ver el reporte final.
+     * Solo se muestra cuando la simulación terminó.
+     */
+    public void verReporte() {
+        if (!modelo.estaConfigurado()) {
+            vista.mostrarMensaje("Todavía no hay ninguna simulación. "
+                    + "Configurá una y jugala hasta el final para ver el reporte.");
+            return;
+        }
+        if (!modelo.simulacionFinalizada()) {
+            vista.mostrarMensaje("El reporte final estará disponible cuando termine la simulación "
+                    + "(turno " + modelo.obtenerTurnoActual() + " de "
+                    + modelo.obtenerTurnosTotales() + ").");
+            return;
+        }
+        vista.mostrarReporte(armarReporte());
+        vista.mostrarPantallaReporte();
+    }
     private void refrescarDespuesDeIntervenir() {
         ArrayList<String> eventosAMostrar = new ArrayList<>(ultimosEventos);
         eventosAMostrar.addAll(modelo.obtenerEventosPendientes());
