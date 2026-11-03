@@ -61,10 +61,10 @@ public class EcosistemaDAO {
             }
             return true;
 
-        } catch (IOException e) {
-            System.out.println("Error al guardar el archivo: " + e.getMessage());
+            } catch (IOException e) {
+            // El DAO no muestra mensajes: avisa con false y el controlador decide.
             return false;
-        }
+            }
     }
 
     public Ecosistema restaurar() {
@@ -119,7 +119,7 @@ public class EcosistemaDAO {
                                 Integer.parseInt(p[6]));        // éxitos de caza (0 si no es lobo)
                     }
                 } catch (IllegalArgumentException | ArrayIndexOutOfBoundsException e) {
-                    System.out.println("Línea ignorada (formato inválido): " + linea);
+                // Línea con formato inválido: se ignora y se sigue con las demás.
                 }
             }
 
@@ -127,7 +127,7 @@ public class EcosistemaDAO {
             return ecosistema;
 
         } catch (IOException | IllegalArgumentException | ArrayIndexOutOfBoundsException e) {
-            System.out.println("Error al leer el archivo: " + e.getMessage());
+            // Archivo ilegible o con encabezado inválido: avisa con null.
             return null;
         }
     }
@@ -143,11 +143,13 @@ public class EcosistemaDAO {
              + cacerias;
     }
     
-    public void borrarGuardado() {
+    /**
+     * Borra la simulación guardada. Devuelve false solo si el archivo existía
+     * y no se pudo borrar.
+     */
+    public boolean borrarGuardado() {
         File archivo = new File(ARCHIVO);
-        if (archivo.exists() && !archivo.delete()) {
-            System.out.println("No se pudo borrar el archivo guardado.");
-        }
+        return !archivo.exists() || archivo.delete();
     }
 
 }

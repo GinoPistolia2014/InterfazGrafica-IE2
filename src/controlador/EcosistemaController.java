@@ -230,11 +230,27 @@ public class EcosistemaController {
 
         vista.actualizarTablaEntidades(filas);
         vista.actualizarEventos(eventos);
-        dao.guardar(modelo);
+        guardarEstado();
+    }
+
+    /**
+     * Guarda el estado actual en el archivo. Si el DAO avisa que falló,
+     * el controlador le pide a la vista que se lo muestre a la persona.
+     */
+    private void guardarEstado() {
+        boolean guardado = dao.guardar(modelo);
+        if (!guardado) {
+            vista.mostrarError("No se pudo guardar la simulación en el archivo "
+                    + EcosistemaDAO.ARCHIVO + ". Podés seguir jugando, "
+                    + "pero si cerrás la aplicación se perderá el avance.");
+        }
     }
 
     private void finalizarSimulacionEnVista() {
-        dao.borrarGuardado();
+        if (!dao.borrarGuardado()) {
+          vista.mostrarError("La simulación terminó, pero no se pudo borrar el archivo "
+          + EcosistemaDAO.ARCHIVO + ". Al abrir la aplicación se ofrecerá retomarla.");
+        }
         vista.habilitarAvanceTurno(false);
         vista.habilitarIntervencion(false);
         vista.actualizarEstadoSimulacion(modelo.obtenerCausaFin());
@@ -268,7 +284,9 @@ public class EcosistemaController {
     public void cargarSimulacion() {
         Ecosistema cargado = dao.restaurar();
         if (cargado == null) {
-            vista.mostrarError("No se pudo leer la simulación guardada.");
+            vista.mostrarError("No se pudo leer la simulación guardada: el archivo "
+                    + EcosistemaDAO.ARCHIVO + " está dañado o tiene un formato inválido. "
+                    + "Configurá una simulación nueva.");
             vista.mostrarPantallaConfiguracion();
             return;
         }
