@@ -381,7 +381,34 @@ public class EcosistemaController {
         sb.append(filaTotales("Conejo", Conejo.class));
         sb.append(filaTotales("Lobo", Lobo.class));
 
+                sb.append(filaTotales("Lobo", Lobo.class));
+
+        sb.append("\nESTADISTICAS DE POBLACION (turno 0 = estado inicial)\n");
+        sb.append(String.format("  %-10s %16s %16s%n", "Tipo", "Maximo (turno)", "Minimo (turno)"));
+        sb.append(filaMaximoMinimo("Plantas", "plantas"));
+        sb.append(filaMaximoMinimo("Conejos", "conejos"));
+        sb.append(filaMaximoMinimo("Lobos", "lobos"));
+
+        sb.append("\nHISTORIAL DE POBLACION POR TURNO\n");
+        sb.append(String.format("  %5s %9s %9s %7s%n", "Turno", "Plantas", "Conejos", "Lobos"));
+        ArrayList<Integer> plantas = modelo.obtenerHistorialPlantas();
+        ArrayList<Integer> conejos = modelo.obtenerHistorialConejos();
+        ArrayList<Integer> lobos = modelo.obtenerHistorialLobos();
+        for (int t = 0; t < plantas.size(); t++) {
+            sb.append(String.format("  %5d %9d %9d %7d%n",
+                    t, plantas.get(t), conejos.get(t), lobos.get(t)));
+        }
+
         return sb.toString();
+    }
+
+    private String filaMaximoMinimo(String nombre, String poblacion) {
+        int[] datos = modelo.obtenerMaximoYMinimo(poblacion);
+        return String.format("  %-10s %16s %16s%n", nombre,
+                datos[0] + " (" + datos[1] + ")",
+                datos[2] + " (" + datos[3] + ")");
+    
+    
     }
 
     private String lineaLongeva(String tipo, Entidad e) {

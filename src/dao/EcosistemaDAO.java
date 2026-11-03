@@ -53,7 +53,19 @@ public class EcosistemaDAO {
             escritor.write(actividad.toString());
             escritor.newLine();
 
-            // 3) Todas las entidades, vivas y muertas
+            // 3) Historial de poblaciones: una línea por turno (turno 0 = inicio)
+            ArrayList<Integer> plantas = ecosistema.obtenerHistorialPlantas();
+            ArrayList<Integer> conejos = ecosistema.obtenerHistorialConejos();
+            ArrayList<Integer> lobos = ecosistema.obtenerHistorialLobos();
+            for (int turno = 0; turno < plantas.size(); turno++) {
+                escritor.write("HISTORIAL" + SEPARADOR
+                        + plantas.get(turno) + SEPARADOR
+                        + conejos.get(turno) + SEPARADOR
+                        + lobos.get(turno));
+                escritor.newLine();
+            }
+
+            // 4) Todas las entidades, vivas y muertas
             ArrayList<Entidad> nacidas = ecosistema.obtenerNacimientosRegistrados();
             for (Entidad e : ecosistema.obtenerTodasLasEntidades()) {
                 escritor.write(pasarAArchivo(e, nacidas.contains(e)));
@@ -108,6 +120,11 @@ public class EcosistemaDAO {
                             actividad.add(Integer.parseInt(p[i].trim()));
                         }
                         ecosistema.restaurarActividad(actividad);
+                                        } else if (p[0].equals("HISTORIAL")) {
+                        ecosistema.restaurarHistorial(
+                                Integer.parseInt(p[1].trim()),
+                                Integer.parseInt(p[2].trim()),
+                                Integer.parseInt(p[3].trim()));
                     } else {
                         ecosistema.restaurarEntidad(
                                 p[0],                           // especie

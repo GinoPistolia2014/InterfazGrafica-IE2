@@ -568,8 +568,24 @@ public class Ecosistema {
         if (nacida) nacimientosRegistrados.add(e);
     }
 
+        /**
+     * Agrega al historial las poblaciones de un turno leídas del archivo.
+     * Se llama una vez por turno, en orden, empezando por el turno 0.
+     */
+    public void restaurarHistorial(int plantas, int conejos, int lobos) {
+        if (plantas < 0 || conejos < 0 || lobos < 0) {
+            throw new IllegalArgumentException("Historial con valores negativos.");
+        }
+        historialPlantas.add(plantas);
+        historialConejos.add(conejos);
+        historialLobos.add(lobos);
+    }
+
     public void finalizarRestauracion() {
-        guardarPoblaciones();   // el historial arranca desde el estado cargado
+        // Si el archivo no traía historial, arranca desde el estado cargado.
+        if (historialPlantas.isEmpty()) {
+            guardarPoblaciones();
+        }
         configurado = true;
     }
     
@@ -643,7 +659,46 @@ public class Ecosistema {
         }
         return n;
     }
+        // -----------------------------------------------------------------
+    // ESTADÍSTICAS DE POBLACIÓN (bonus)
+    // -----------------------------------------------------------------
 
+    /**
+     * Devuelve {valorMaximo, turnoDelMaximo, valorMinimo, turnoDelMinimo}
+     * del historial de "plantas", "conejos" o "lobos". El turno 0 es el
+     * estado inicial. Ante un empate se queda con el primer turno.
+     */
+    public int[] obtenerMaximoYMinimo(String poblacion) {
+        ArrayList<Integer> historial = obtenerHistorial(poblacion);
+        if (historial.isEmpty()) {
+            return new int[]{0, 0, 0, 0};
+        }
+
+        int turnoMaximo = 0;
+        int turnoMinimo = 0;
+        for (int turno = 1; turno < historial.size(); turno++) {
+            if (historial.get(turno) > historial.get(turnoMaximo)) {
+                turnoMaximo = turno;
+            }
+            if (historial.get(turno) < historial.get(turnoMinimo)) {
+                turnoMinimo = turno;
+            }
+        }
+        return new int[]{
+            historial.get(turnoMaximo), turnoMaximo,
+            historial.get(turnoMinimo), turnoMinimo
+        };
+    }
+
+    private ArrayList<Integer> obtenerHistorial(String poblacion) {
+        return switch (poblacion) {
+            case "plantas" -> historialPlantas;
+            case "conejos" -> historialConejos;
+            case "lobos" -> historialLobos;
+            default -> throw new IllegalArgumentException(
+                    "Poblacion desconocida: " + poblacion);
+        };
+    }
     public int contarMuertes(Class<? extends Entidad> tipo) {
         int n = 0;
         for (Entidad e : muertesRegistradas) {
