@@ -185,7 +185,33 @@ public class EcosistemaController {
         }
         refrescarDespuesDeIntervenir();
     }
+     /**
+     * Pedido de la vista (botón o menú) para empezar una simulación nueva.
+     * Si hay una simulación en curso, primero pide confirmación.
+     */
+    public void nuevaSimulacion() {
+        if (modelo.estaConfigurado() && !modelo.simulacionFinalizada()) {
+            boolean confirmado = vista.confirmar(
+                    "Hay una simulación en curso (turno "
+                    + modelo.obtenerTurnoActual() + " de "
+                    + modelo.obtenerTurnosTotales() + ").\n"
+                    + "Si empezás una nueva, se pierde el avance actual. ¿Querés continuar?");
+            if (!confirmado) {
+                return;
+            }
+        }
 
+        if (!dao.borrarGuardado()) {
+            vista.mostrarError("No se pudo borrar la simulación guardada en "
+                    + EcosistemaDAO.ARCHIVO + ".");
+        }
+
+        modelo = new Ecosistema();
+        ultimosEventos = new ArrayList<>();
+        vista.habilitarAvanceTurno(false);
+        vista.habilitarIntervencion(false);
+        vista.mostrarPantallaConfiguracion();
+    }
     private void refrescarDespuesDeIntervenir() {
         ArrayList<String> eventosAMostrar = new ArrayList<>(ultimosEventos);
         eventosAMostrar.addAll(modelo.obtenerEventosPendientes());

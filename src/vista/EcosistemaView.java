@@ -119,7 +119,18 @@ public class EcosistemaView extends javax.swing.JFrame {
                 "Simulador de Ecosistema",
                 JOptionPane.INFORMATION_MESSAGE);
     }
-    
+     /**
+     * Pide a la persona que confirme una acción. Devuelve true si acepta.
+     */
+    public boolean confirmar(String mensaje) {
+        int respuesta = JOptionPane.showConfirmDialog(
+                this,
+                mensaje,
+                "Confirmar",
+                JOptionPane.YES_NO_OPTION,
+                JOptionPane.WARNING_MESSAGE);
+        return respuesta == JOptionPane.YES_OPTION;
+    }
     public boolean preguntarSiRestaurar() {
         int respuesta = JOptionPane.showConfirmDialog(
                 this,
@@ -181,10 +192,13 @@ public class EcosistemaView extends javax.swing.JFrame {
         lblTipoEntidad = new javax.swing.JLabel();
         cmbTipoEntidad = new javax.swing.JComboBox<>();
         btnAgregarEntidad = new javax.swing.JButton();
+        btnNuevaSimulacion = new javax.swing.JButton();
         panelReporte = new javax.swing.JPanel();
         lblTituloReporte = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
         txtReporte = new javax.swing.JTextArea();
+        panelBotonesReporte = new javax.swing.JPanel();
+        btnNuevaSimulacionReporte = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Simulador de Ecosistema - IE2");
@@ -353,6 +367,10 @@ public class EcosistemaView extends javax.swing.JFrame {
 
         panelAccionesSim.add(panelIntervencion, java.awt.BorderLayout.CENTER);
 
+        btnNuevaSimulacion.setText("NUEVA SIMULACIÓN");
+        btnNuevaSimulacion.addActionListener(this::btnNuevaSimulacionActionPerformed);
+        panelAccionesSim.add(btnNuevaSimulacion, java.awt.BorderLayout.WEST);
+
         panelSimulacion.add(panelAccionesSim, java.awt.BorderLayout.PAGE_END);
 
         panelPrincipal.add(panelSimulacion, "simulacion");
@@ -372,6 +390,32 @@ public class EcosistemaView extends javax.swing.JFrame {
         jScrollPane1.setViewportView(txtReporte);
 
         panelReporte.add(jScrollPane1, java.awt.BorderLayout.CENTER);
+
+        btnNuevaSimulacionReporte.setText("NUEVA SIMULACIÓ");
+        btnNuevaSimulacionReporte.addActionListener(this::btnNuevaSimulacionReporteActionPerformed);
+
+        javax.swing.GroupLayout panelBotonesReporteLayout = new javax.swing.GroupLayout(panelBotonesReporte);
+        panelBotonesReporte.setLayout(panelBotonesReporteLayout);
+        panelBotonesReporteLayout.setHorizontalGroup(
+            panelBotonesReporteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 980, Short.MAX_VALUE)
+            .addGroup(panelBotonesReporteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(panelBotonesReporteLayout.createSequentialGroup()
+                    .addGap(0, 0, Short.MAX_VALUE)
+                    .addComponent(btnNuevaSimulacionReporte)
+                    .addGap(0, 0, Short.MAX_VALUE)))
+        );
+        panelBotonesReporteLayout.setVerticalGroup(
+            panelBotonesReporteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 100, Short.MAX_VALUE)
+            .addGroup(panelBotonesReporteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(panelBotonesReporteLayout.createSequentialGroup()
+                    .addGap(0, 0, Short.MAX_VALUE)
+                    .addComponent(btnNuevaSimulacionReporte)
+                    .addGap(0, 0, Short.MAX_VALUE)))
+        );
+
+        panelReporte.add(panelBotonesReporte, java.awt.BorderLayout.PAGE_END);
 
         panelPrincipal.add(panelReporte, "reporte");
 
@@ -423,11 +467,23 @@ public class EcosistemaView extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_cmbTipoEntidadActionPerformed
 
+    private void btnNuevaSimulacionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNuevaSimulacionActionPerformed
+        // TODO add your handling code here:
+        controlador.nuevaSimulacion();
+    }//GEN-LAST:event_btnNuevaSimulacionActionPerformed
+
+    private void btnNuevaSimulacionReporteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNuevaSimulacionReporteActionPerformed
+        // TODO add your handling code here:
+        controlador.nuevaSimulacion();
+    }//GEN-LAST:event_btnNuevaSimulacionReporteActionPerformed
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAgregarEntidad;
     private javax.swing.JButton btnAvanzarTurno;
     private javax.swing.JButton btnCambiarClima;
     private javax.swing.JButton btnIniciar;
+    private javax.swing.JButton btnNuevaSimulacion;
+    private javax.swing.JButton btnNuevaSimulacionReporte;
     private javax.swing.JComboBox<String> cmbClima;
     private javax.swing.JComboBox<String> cmbNuevoClima;
     private javax.swing.JComboBox<String> cmbTipoEntidad;
@@ -452,6 +508,7 @@ public class EcosistemaView extends javax.swing.JFrame {
     private javax.swing.JList<String> lstEventos;
     private javax.swing.JPanel panelAccionesSim;
     private javax.swing.JPanel panelBotonesConfig;
+    private javax.swing.JPanel panelBotonesReporte;
     private javax.swing.JPanel panelConfiguracion;
     private javax.swing.JPanel panelContenidoSimulacion;
     private javax.swing.JPanel panelEntidades;
