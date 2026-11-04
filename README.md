@@ -86,7 +86,9 @@ Ver también `documentacion/FIGMA_LINK.txt`.
 
 ## Video explicativo
 
-Link: **[COMPLETAR]**
+Link: https://drive.google.com/drive/folders/1SifajfMp9xQyIkccp80j1AeevmD8Vyls
+
+## Link Drive: https://drive.google.com/drive/folders/1uHSzjdGgZFdVKl3xajFWjBsrZWT93he2?usp=drive_link
 
 ## Desafíos encontrados
 
