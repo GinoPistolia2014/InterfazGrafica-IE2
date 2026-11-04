@@ -79,7 +79,8 @@ Si el archivo no existe se empieza una simulación nueva; si tiene datos inváli
 
 ## Diseño en Figma
 
-Link: **[COMPLETAR]**
+Link: https://www.figma.com/design/XvJk9SqRHmrSOcVKPdrg3B/Sin-t%C3%ADtulo?node-id=0-1&t=xLZLfoKSbIZeP5QB-1
+
 
 Ver también `documentacion/FIGMA_LINK.txt`.
 
