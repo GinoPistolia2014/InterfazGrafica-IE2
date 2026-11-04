@@ -185,7 +185,52 @@ public class EcosistemaController {
         }
         refrescarDespuesDeIntervenir();
     }
+     /**
+     * Pedido de la vista (botón o menú) para empezar una simulación nueva.
+     * Si hay una simulación en curso, primero pide confirmación.
+     */
+    public void nuevaSimulacion() {
+        if (modelo.estaConfigurado() && !modelo.simulacionFinalizada()) {
+            boolean confirmado = vista.confirmar(
+                    "Hay una simulación en curso (turno "
+                    + modelo.obtenerTurnoActual() + " de "
+                    + modelo.obtenerTurnosTotales() + ").\n"
+                    + "Si empezás una nueva, se pierde el avance actual. ¿Querés continuar?");
+            if (!confirmado) {
+                return;
+            }
+        }
 
+        if (!dao.borrarGuardado()) {
+            vista.mostrarError("No se pudo borrar la simulación guardada en "
+                    + EcosistemaDAO.ARCHIVO + ".");
+        }
+
+        modelo = new Ecosistema();
+        ultimosEventos = new ArrayList<>();
+        vista.habilitarAvanceTurno(false);
+        vista.habilitarIntervencion(false);
+        vista.mostrarPantallaConfiguracion();
+    }
+     /**
+     * Pedido de la vista (menú Reportes) para ver el reporte final.
+     * Solo se muestra cuando la simulación terminó.
+     */
+    public void verReporte() {
+        if (!modelo.estaConfigurado()) {
+            vista.mostrarMensaje("Todavía no hay ninguna simulación. "
+                    + "Configurá una y jugala hasta el final para ver el reporte.");
+            return;
+        }
+        if (!modelo.simulacionFinalizada()) {
+            vista.mostrarMensaje("El reporte final estará disponible cuando termine la simulación "
+                    + "(turno " + modelo.obtenerTurnoActual() + " de "
+                    + modelo.obtenerTurnosTotales() + ").");
+            return;
+        }
+        vista.mostrarReporte(armarReporte());
+        vista.mostrarPantallaReporte();
+    }
     private void refrescarDespuesDeIntervenir() {
         ArrayList<String> eventosAMostrar = new ArrayList<>(ultimosEventos);
         eventosAMostrar.addAll(modelo.obtenerEventosPendientes());
@@ -230,11 +275,27 @@ public class EcosistemaController {
 
         vista.actualizarTablaEntidades(filas);
         vista.actualizarEventos(eventos);
-        dao.guardar(modelo);
+        guardarEstado();
+    }
+
+    /**
+     * Guarda el estado actual en el archivo. Si el DAO avisa que falló,
+     * el controlador le pide a la vista que se lo muestre a la persona.
+     */
+    private void guardarEstado() {
+        boolean guardado = dao.guardar(modelo);
+        if (!guardado) {
+            vista.mostrarError("No se pudo guardar la simulación en el archivo "
+                    + EcosistemaDAO.ARCHIVO + ". Podés seguir jugando, "
+                    + "pero si cerrás la aplicación se perderá el avance.");
+        }
     }
 
     private void finalizarSimulacionEnVista() {
-        dao.borrarGuardado();
+        if (!dao.borrarGuardado()) {
+          vista.mostrarError("La simulación terminó, pero no se pudo borrar el archivo "
+          + EcosistemaDAO.ARCHIVO + ". Al abrir la aplicación se ofrecerá retomarla.");
+        }
         vista.habilitarAvanceTurno(false);
         vista.habilitarIntervencion(false);
         vista.actualizarEstadoSimulacion(modelo.obtenerCausaFin());
@@ -268,7 +329,9 @@ public class EcosistemaController {
     public void cargarSimulacion() {
         Ecosistema cargado = dao.restaurar();
         if (cargado == null) {
-            vista.mostrarError("No se pudo leer la simulación guardada.");
+            vista.mostrarError("No se pudo leer la simulación guardada: el archivo "
+                    + EcosistemaDAO.ARCHIVO + " está dañado o tiene un formato inválido. "
+                    + "Configurá una simulación nueva.");
             vista.mostrarPantallaConfiguracion();
             return;
         }
@@ -318,7 +381,34 @@ public class EcosistemaController {
         sb.append(filaTotales("Conejo", Conejo.class));
         sb.append(filaTotales("Lobo", Lobo.class));
 
+                sb.append(filaTotales("Lobo", Lobo.class));
+
+        sb.append("\nESTADISTICAS DE POBLACION (turno 0 = estado inicial)\n");
+        sb.append(String.format("  %-10s %16s %16s%n", "Tipo", "Maximo (turno)", "Minimo (turno)"));
+        sb.append(filaMaximoMinimo("Plantas", "plantas"));
+        sb.append(filaMaximoMinimo("Conejos", "conejos"));
+        sb.append(filaMaximoMinimo("Lobos", "lobos"));
+
+        sb.append("\nHISTORIAL DE POBLACION POR TURNO\n");
+        sb.append(String.format("  %5s %9s %9s %7s%n", "Turno", "Plantas", "Conejos", "Lobos"));
+        ArrayList<Integer> plantas = modelo.obtenerHistorialPlantas();
+        ArrayList<Integer> conejos = modelo.obtenerHistorialConejos();
+        ArrayList<Integer> lobos = modelo.obtenerHistorialLobos();
+        for (int t = 0; t < plantas.size(); t++) {
+            sb.append(String.format("  %5d %9d %9d %7d%n",
+                    t, plantas.get(t), conejos.get(t), lobos.get(t)));
+        }
+
         return sb.toString();
+    }
+
+    private String filaMaximoMinimo(String nombre, String poblacion) {
+        int[] datos = modelo.obtenerMaximoYMinimo(poblacion);
+        return String.format("  %-10s %16s %16s%n", nombre,
+                datos[0] + " (" + datos[1] + ")",
+                datos[2] + " (" + datos[3] + ")");
+    
+    
     }
 
     private String lineaLongeva(String tipo, Entidad e) {

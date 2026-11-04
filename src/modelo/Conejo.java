@@ -12,7 +12,7 @@ public class Conejo extends Animal implements Reproducible {
         intentarReproduccion(eco);
     }
 
-    @Override
+        @Override
     protected void comer(Ecosistema eco) {
         if (!estaVivo() || obtenerEnergia() <= 0) {
             return;
@@ -23,9 +23,16 @@ public class Conejo extends Animal implements Reproducible {
                 int valorNutritivo = planta.serComida();
                 establecerEnergia(obtenerEnergia() + valorNutritivo);
 
-                eco.registrarEvento(obtenerNombre() + " comio a "
-                        + planta.obtenerNombre() + " (aporte de energia: "
-                        + valorNutritivo + ").");
+                if (planta instanceof PlantaVenenosa) {
+                    // Recién al comerla se sabe que era venenosa.
+                    eco.registrarEvento(obtenerNombre() + " comio a "
+                            + planta.obtenerNombre() + ", que era VENENOSA, y perdio "
+                            + Math.abs(valorNutritivo) + " de energia.");
+                } else {
+                    eco.registrarEvento(obtenerNombre() + " comio a "
+                            + planta.obtenerNombre() + " (aporte de energia: "
+                            + valorNutritivo + ").");
+                }
                 eco.registrarMuerte(planta, "fue consumida por " + obtenerNombre());
                 return;
             }
@@ -35,7 +42,6 @@ public class Conejo extends Animal implements Reproducible {
         eco.registrarEvento(obtenerNombre()
                 + " no encontro plantas disponibles y perdio 15 de energia.");
     }
-
     @Override
     public boolean puedeReproducirse() {
         return estaVivo() && obtenerEnergia() > 60;

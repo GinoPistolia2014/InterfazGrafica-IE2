@@ -53,7 +53,19 @@ public class EcosistemaDAO {
             escritor.write(actividad.toString());
             escritor.newLine();
 
-            // 3) Todas las entidades, vivas y muertas
+            // 3) Historial de poblaciones: una línea por turno (turno 0 = inicio)
+            ArrayList<Integer> plantas = ecosistema.obtenerHistorialPlantas();
+            ArrayList<Integer> conejos = ecosistema.obtenerHistorialConejos();
+            ArrayList<Integer> lobos = ecosistema.obtenerHistorialLobos();
+            for (int turno = 0; turno < plantas.size(); turno++) {
+                escritor.write("HISTORIAL" + SEPARADOR
+                        + plantas.get(turno) + SEPARADOR
+                        + conejos.get(turno) + SEPARADOR
+                        + lobos.get(turno));
+                escritor.newLine();
+            }
+
+            // 4) Todas las entidades, vivas y muertas
             ArrayList<Entidad> nacidas = ecosistema.obtenerNacimientosRegistrados();
             for (Entidad e : ecosistema.obtenerTodasLasEntidades()) {
                 escritor.write(pasarAArchivo(e, nacidas.contains(e)));
@@ -61,10 +73,10 @@ public class EcosistemaDAO {
             }
             return true;
 
-        } catch (IOException e) {
-            System.out.println("Error al guardar el archivo: " + e.getMessage());
+            } catch (IOException e) {
+            // El DAO no muestra mensajes: avisa con false y el controlador decide.
             return false;
-        }
+            }
     }
 
     public Ecosistema restaurar() {
@@ -108,6 +120,11 @@ public class EcosistemaDAO {
                             actividad.add(Integer.parseInt(p[i].trim()));
                         }
                         ecosistema.restaurarActividad(actividad);
+                                        } else if (p[0].equals("HISTORIAL")) {
+                        ecosistema.restaurarHistorial(
+                                Integer.parseInt(p[1].trim()),
+                                Integer.parseInt(p[2].trim()),
+                                Integer.parseInt(p[3].trim()));
                     } else {
                         ecosistema.restaurarEntidad(
                                 p[0],                           // especie
@@ -119,7 +136,7 @@ public class EcosistemaDAO {
                                 Integer.parseInt(p[6]));        // éxitos de caza (0 si no es lobo)
                     }
                 } catch (IllegalArgumentException | ArrayIndexOutOfBoundsException e) {
-                    System.out.println("Línea ignorada (formato inválido): " + linea);
+                // Línea con formato inválido: se ignora y se sigue con las demás.
                 }
             }
 
@@ -127,7 +144,7 @@ public class EcosistemaDAO {
             return ecosistema;
 
         } catch (IOException | IllegalArgumentException | ArrayIndexOutOfBoundsException e) {
-            System.out.println("Error al leer el archivo: " + e.getMessage());
+            // Archivo ilegible o con encabezado inválido: avisa con null.
             return null;
         }
     }
@@ -143,11 +160,13 @@ public class EcosistemaDAO {
              + cacerias;
     }
     
-    public void borrarGuardado() {
+    /**
+     * Borra la simulación guardada. Devuelve false solo si el archivo existía
+     * y no se pudo borrar.
+     */
+    public boolean borrarGuardado() {
         File archivo = new File(ARCHIVO);
-        if (archivo.exists() && !archivo.delete()) {
-            System.out.println("No se pudo borrar el archivo guardado.");
-        }
+        return !archivo.exists() || archivo.delete();
     }
 
 }
